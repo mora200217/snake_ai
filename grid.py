@@ -48,6 +48,7 @@ class Grid:
                 (self.square_dim, self.square_dim)),
                 0)
                 #1 if self.mat[sq_x][sq_y] == 0 else 0)
+        pg.display.flip()
         
 
 
