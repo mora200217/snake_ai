@@ -12,12 +12,23 @@ class Snake:
     '''
     def __init__(self, grid_dim):
         self.segments = [] # Segments+ array
-        self.init_pos = (2, 3)
+        self.init_pos = np.array([8, 3])
         self.pos = self.init_pos
+        self.direction = np.array([1, 0])
         self.head = Segment(self.pos[0], self.pos[1])
-        self.tail = Segment(self.pos[0] - 1, self.pos[1] - 1)
-        self.segments.append([self.head, self.tail])
+        self.segments.append(self.head)
+        self.add_segment()
+        self.add_segment()
+        self.add_segment()
+        self.add_segment()
+        self.add_segment()
 
+
+    '''
+    Add Segment
+    '''
+    def add_segment(self):
+        self.segments.append(Segment(np.add(self.segments[-1].pos, - self.direction)))
     '''
     Display
         Show the snake drawing each segment

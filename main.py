@@ -44,6 +44,7 @@ def main():
         '''
         
         my_grid.display(screen)
+        snake.display(my_grid)
         pg.display.update()
         
         
