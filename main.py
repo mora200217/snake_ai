@@ -7,6 +7,9 @@ import sys
 from pygame.locals import *
 from pygame import draw as dp
 
+from snake import Snake
+from grid import Grid
+
 # Basic Setup 
 pg.init()
 DIM = {
@@ -14,27 +17,19 @@ DIM = {
     "y": 500
 }
 dimension = (DIM["x"], DIM["y"])
+square_dimension = 25
 
 '''
-    Function for grid creation - Displays a n x n square grid for the game
-    Params: [square dimensions]  
-    Return: Void
-'''
-def grid(screen, dim = 20):
-    # Draw each square of the grid
-    squareColor = pg.Color(255, 255, 255, 80)
-    for x_step in range(0, DIM['x'], dim):
-        for y_step in range(0, DIM['y'], dim):
-            dp.rect(screen, squareColor ,((x_step, y_step), (dim, dim)), 1)
-
-''' 
 Main function - Executed each iteration
 '''    
 
 def main(): 
     screen = pg.display.set_mode(dimension)
     pg.display.set_caption('Hola mundo!')
-    
+    # Game Variables 
+    amount_of_squares = (DIM["x"] / square_dimension, DIM["y"] / square_dimension)
+    snake = Snake(amount_of_squares) # Main player - snake of Segments()
+    my_grid = Grid(dimension, square_dimension)
     # Game loop
     while True:
         '''
@@ -47,8 +42,10 @@ def main():
         '''
         Game Functions 
         '''
-        grid(screen = screen)
+        
+        my_grid.display(screen)
         pg.display.update()
+        
         
     return 0
 
