@@ -43,13 +43,14 @@ def main():
     while True:
         # Key 
         key = pg.key.get_pressed()
-        if key[pg.K_UP]:
+        temp_direction = snake.segments[0].direction
+        if key[pg.K_UP] and temp_direction[1] != 1:
             snake.move(np.array([0, -1]))
-        elif key[pg.K_DOWN]:
+        elif key[pg.K_DOWN] and temp_direction[1] != -1:
             snake.move(np.array([0, 1]))
-        elif key[pg.K_LEFT]:
+        elif key[pg.K_LEFT] and temp_direction[0] != 1:
             snake.move(np.array([-1, 0]))
-        elif key[pg.K_RIGHT]:
+        elif key[pg.K_RIGHT] and temp_direction[0] != -1:
             snake.move(np.array([1, 0]))
         elif key[pg.K_SPACE] and keep_adding:
             snake.add_segment()

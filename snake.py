@@ -43,7 +43,6 @@ class Snake:
     '''
     def update(self, grid = 0): 
         last_segment = self.segments[-1]
-        segments_reverse = self.segments.copy().reverse()
         for segment in reversed(self.segments): 
             grid.mat[segment.pos[0]][segment.pos[1]] = 0 # Delete last instance in grid 
             segment.pos = np.add(segment.pos, segment.direction)
