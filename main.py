@@ -9,6 +9,7 @@ from pygame import draw as dp
 
 from snake import Snake
 from grid import Grid
+from food import Food
 
 import numpy as np
 
@@ -19,7 +20,7 @@ DIM = {
     "y": 500
 }
 dimension = (DIM["x"], DIM["y"])
-square_dimension = 25
+square_dimension = 20
 
 UPDATE_EVENT = 1
 
@@ -33,14 +34,21 @@ def main():
     pg.display.set_caption("Snake - IA")
     # Game Variables 
     amount_of_squares = (DIM["x"] / square_dimension, DIM["y"] / square_dimension)
-    snake = Snake(amount_of_squares) # Main player - snake of Segments()
+
     my_grid = Grid(dimension, square_dimension)
+    snake = Snake(amount_of_squares, my_grid) # Main player - snake of Segments()
     
-    pg.time.set_timer(UPDATE_EVENT, 150)
+    pg.time.set_timer(UPDATE_EVENT, 100)
+    food = Food(my_grid)
 
     keep_adding = True
+
+    game_clock = pg.time.Clock()
+    
     # Game loop
     while True:
+        # FPS - Management 
+        game_clock.tick(40)
         # Key 
         key = pg.key.get_pressed()
         temp_direction = snake.segments[0].direction
@@ -58,6 +66,8 @@ def main():
         '''
         Events handler
         '''
+        
+        ##screen.fill((0,0,0))
         for event in pg.event.get():
             if event.type == UPDATE_EVENT: 
                 snake.update(my_grid)
@@ -67,12 +77,14 @@ def main():
         '''
         Game Functions 
         '''
-        screen.fill((0,0,0))
-
-        my_grid.display(screen)
+       
+        
+        
         snake.display(my_grid)
-
-        pg.display.update()        
+        food.draw()
+        food.update(snake)
+        my_grid.display(screen)
+        pg.display.flip()        
     return 0
 
 if __name__ == "__main__":
